@@ -1,18 +1,25 @@
 _ = require('./underscore.js')
 
 handle_data = (data) ->
-  console.log "<html>"
-  console.log """<head><meta http-equiv="Content-Type" content="text/html; charset=windows-1251"></head>"""
+  console.log """
+    <script type="text/javascript", src="https://d3eoax9i5htok0.cloudfront.net/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <body style="width: 500px; margin: auto">
+    """
+  
   question_templates = JSON.parse data
   for questions in question_templates
     for question in questions
-      console.log "<hr>"
-      console.log "<h3>stimulus</h3>"
-      console.log "<div>#{question.stimulus}</div>"
-      console.log "<div>Correct Answer: #{question.correctAnswer}</div>"
-      console.log "<h3>explanation</h3>"
-      console.log "<div>#{question.explanation}</div>"
-  console.log "</html>"
+      s = '''
+        <hr>
+        <h3>stimulus</h3>
+        <div>{{ stimulus }}</div>
+        <h3>Correct Answer</h3>
+        <div>{{ correctAnswer }}</div>
+        <h3>explanation</h3>
+        <div>{{ explanation }}</div>
+      '''
+      console.log convert s, question
+    
 
 _.templateSettings =
   interpolate : /\{\{(.+?)\}\}/g
