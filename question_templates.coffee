@@ -18,6 +18,7 @@ exports.questionTemplates = [
       so we know that {{ sum }}a = {{ bigSum }}, which means:
       $$a = { {{ bigSum }} \\over {{ sum }} } = {{ correctAnswer }}$$
       '''
+    description: "Geometric Sequences"
     variations: ->
       parameterizations = [
         {
