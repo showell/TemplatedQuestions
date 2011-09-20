@@ -14,11 +14,11 @@ handle_data = (data) ->
       s = '''
         <div style="padding: 20px">
           <hr>
-          <h3>stimulus</h3>
+          <h3>Stimulus</h3>
           <div>{{ stimulus }}</div>
           <h3>Correct Answer</h3>
           <div>{{ correctAnswer }}</div>
-          <h3>explanation</h3>
+          <h3>Explanation</h3>
           <div>{{ explanation }}</div>
         </div>
       '''
