@@ -7,6 +7,49 @@ join = (arr) ->
 
 exports.questionTemplates = [
   {
+    stimulus: '''If \\( f(x) = {{ c }} + {x^2 \\over {{ nn }} } \\) and \\( f({{ n }}k) = {{ b }}k \\), what is the least possible value for \\(k\\)?'''
+    explanation: '''
+      Substituting \\({{ n }}k\\) for \\(x\\), we get that \\(f({{ n }}k) = {{ c }} + {({{ n }}k)^2 \\over {{ nn }} }\\). 
+      We're also told that \\(f({{ n }}k) = {{ b }}k\\), so we can set the two expressions equal.
+      
+      $${{ c }} + {({{ n }}k)^2 \\over {{ nn }}} = {{ b }}k$$
+      $${{ c }} + { {{ nn }}k^2 \\over {{ nn }}} = {{ b }}k$$
+      $${{ c }} + k^2 = {{ b }}k$$
+      $$k^2 - {{ b }}k + {{ c }} = 0$$
+      $$(k - {{ small }})(k - {{ big }}) = 0$$
+      $$k = { {{ small }}, {{ big }} }$$
+
+      So the two possible values for \\(k\\) are {{ small }} and {{ big }}, and thus {{ small }} is the least possible solution.
+    '''
+    description: "Substitution & Factoring"
+    variations: ->
+      parameterizations = [
+        {
+          small: 3
+          big: 5
+          n: 4
+        },
+        {
+          small: 2
+          big: 7
+          n: 3
+        },
+        {
+          small: 6
+          big: 7
+          n: 5
+        },
+      ]
+      
+      parameterizations.map (p) ->
+        p.b = p.big + p.small
+        p.c = p.big * p.small
+        p.nn = p.n * p.n
+        p.correctAnswer = p.small
+        p
+  },
+
+  {
     stimulus: '''
       A new college student is randomly assigned to one of {{ big }} dorm rooms.
       The student has an equal chance of receiving each of the rooms as an assignment.
