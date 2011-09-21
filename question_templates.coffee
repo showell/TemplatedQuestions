@@ -8,6 +8,37 @@ join = (arr) ->
 exports.questionTemplates = [
   {
     stimulus: '''
+      Two of the interior angles of a certain triangle are equal in measure.
+      If two of the triangle's sides have lengths [[ small ]] and [[ big ]], what is the greatest
+      possible value for the triangle's perimeter?
+      '''
+    explanation: '''
+      The fact that two of the triangle's interior angles are congruent means that the triangle is
+      isosceles, so two of its sides are also congruent. We know that two of its sides are
+      [[ small ]] and [[ big ]], so there are only two possible options: 
+      
+        $$ [[ small ]]-[[ small ]]-[[ big ]] $$ or 
+        $$ [[ small ]]-[[ big ]]-[[ big ]]  $$
+      
+      Since the second option will clearly result in a larger perimeter, the greatest possible
+      value for the triangle's perimeter is [[ small ]] + [[ big ]] + [[ big ]], or [[ correctAnswer ]].
+      '''
+    description: 'Isosceles Triangles'
+    variations: ->
+      parameterizations = [
+        [40, 60]
+        [50, 75]
+        [80, 90]
+      ]
+      for p in parameterizations
+        [small, big] = p
+        small: small
+        big: big
+        correctAnswer: big * 2 + small
+  },
+      
+  {
+    stimulus: '''
       On a number line, point A lies at [[ a ]] and point B lies at [[ b ]]. 
       What is the coordinate of the point that is exactly halfway between points A and B?
       '''
