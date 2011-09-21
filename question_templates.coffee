@@ -8,6 +8,56 @@ join = (arr) ->
 exports.questionTemplates = [
   {
     stimulus: '''
+      Given:
+        
+        $$[[ v1 ]]^2 - [[ v2 ]]^2 = [[ big ]]$$
+        $$[[ v1 ]] + [[ v2 ]] = [[ n ]]$$
+      
+      What is the value of [[ v1 ]] - [[ v2 ]]?
+      '''
+    explanation: '''
+      The key insight here is the difference of squares factorization.
+
+        $$[[ v1 ]]^2 - [[ v2 ]]^2 = [[ big ]]$$
+        $$([[ v1 ]] - [[ v2]])([[ v1 ]] + [[ v2 ]]) = [[ big ]]$$
+        
+      Then subsitute the value for \\( [[ v1 ]] + [[ v2 ]] \\)
+
+        $$([[ v1 ]] - [[ v2]])([[ n ]]) = [[ big ]]$$
+        $$[[ v1 ]] - [[ v2 ]] = { [[ big ]] \\over [[ n ]] } = [[ correctAnswer ]]$$
+  
+      
+      '''
+    description: "Difference of Squares"
+    variations: -> 
+      parameterizations = [
+        {
+          correctAnswer: 4
+          n: 10
+          v1: "a"
+          v2: "b"
+        },        
+        {
+          correctAnswer: 9
+          n: 11
+          v1: "x"
+          v2: "y"
+        },
+        {
+          correctAnswer: 3
+          n: 17
+          v1: "m"
+          v2: "n"
+        },
+      ]
+      
+      parameterizations.map (p) ->
+        p.big = p.correctAnswer * p.n
+        p
+  },
+
+  {
+    stimulus: '''
       If \\( f(x) = [[ c ]] + {x^2 \\over [[ nn ]] } \\) and \\( f([[ n ]]k) = [[ b ]]k \\),
       what is the least possible value for \\(k\\)?
       '''
