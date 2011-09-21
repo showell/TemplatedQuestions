@@ -1,3 +1,5 @@
+exports.interpolationSyntax = /\[\[(.+?)\]\]/g
+
 join = (arr) ->
   if arr.length == 2
     "#{arr[0]} and #{arr[1]}"

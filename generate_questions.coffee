@@ -1,9 +1,9 @@
 _ = require('./underscore.js')
+{questionTemplates, interpolationSyntax} = require "./question_templates"
 
 _.templateSettings =
-  interpolate : /\[\[(.+?)\]\]/g
+  interpolate : interpolationSyntax
 
-{questionTemplates} = require "./question_templates"
 
 convert = (s, data) -> _.template(s) data
 
