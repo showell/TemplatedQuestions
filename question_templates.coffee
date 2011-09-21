@@ -7,6 +7,37 @@ join = (arr) ->
 
 exports.questionTemplates = [
   {
+    description: "Algebra: One Variable"
+    stimulus: '''
+      If \\( [[ a ]][[ var_name ]] - [[ b ]] = [[ c ]] \\), then \\( [[ d ]][[ var_name ]] + [[ e ]] = \\)
+      '''
+    explanation: '''
+      We can start by solving directly for [[ var_name ]]:
+        $$ [[ a ]][[ var_name ]] - [[ b ]] = [[ c ]] $$
+        $$ [[ a ]][[ var_name ]] = [[ c ]] + [[ b ]] $$
+        $$ [[ a ]][[ var_name ]] = [[ b_plus_c ]] $$
+        $$ [[ var_name ]] = { [[ b_plus_c ]] \\over [[ a ]] } $$
+        $$ [[ var_name ]] = [[ v ]] $$
+      
+      Then substitute [[ var_name ]] into the second expression:
+      
+        $$ [[ d ]][[ var_name ]] + [[ e ]] = $$
+        $$ [[ d ]]([[ v ]]) + [[ e]] = [[ correctAnswer ]] $$
+      '''
+    variations: ->
+      parameterizations = [
+        {var_name: "x", v: 4, a: 3, b: 7, d: 2, e: 5}
+        {var_name: "y", v: 2, a: 7, b: 11, d: 3, e: 2}
+      ]
+      for p in parameterizations
+        p.c = p.a * p.v - p.b
+        p.b_plus_c = p.b + p.c
+        p.correctAnswer = p.d * p.v + p.e
+        p
+  },
+  
+  {
+    description: 'Isosceles Triangles'
     stimulus: '''
       Two of the interior angles of a certain triangle are equal in measure.
       If two of the triangle's sides have lengths [[ small ]] and [[ big ]], what is the greatest
@@ -23,7 +54,6 @@ exports.questionTemplates = [
       Since the second option will clearly result in a larger perimeter, the greatest possible
       value for the triangle's perimeter is [[ small ]] + [[ big ]] + [[ big ]], or [[ correctAnswer ]].
       '''
-    description: 'Isosceles Triangles'
     variations: ->
       parameterizations = [
         [40, 60]
@@ -38,6 +68,7 @@ exports.questionTemplates = [
   },
       
   {
+    description: 'Midpoints on the Number Line'
     stimulus: '''
       On a number line, point A lies at [[ a ]] and point B lies at [[ b ]]. 
       What is the coordinate of the point that is exactly halfway between points A and B?
@@ -61,7 +92,6 @@ exports.questionTemplates = [
        $$ [[ a ]] + [[ halfdiff ]] = [[ correctAnswer ]] $$ or
        $$ [[ b ]] - [[ halfdiff ]] = [[ correctAnswer ]] $$
       '''
-    description: 'Midpoints on the Number Line'
     variations: ->
       tuples = [ 
         [3, 17],
@@ -81,6 +111,7 @@ exports.questionTemplates = [
   },
   
   {
+    description: "Difference of Squares"
     stimulus: '''
       Given:
         
@@ -102,7 +133,6 @@ exports.questionTemplates = [
   
       
       '''
-    description: "Difference of Squares"
     variations: -> 
       parameterizations = [
         {
@@ -131,6 +161,7 @@ exports.questionTemplates = [
   },
 
   {
+    description: "Substitution & Factoring"
     stimulus: '''
       If \\( f(x) = [[ c ]] + {x^2 \\over [[ nn ]] } \\) and \\( f([[ n ]]k) = [[ b ]]k \\),
       what is the least possible value for \\(k\\)?
@@ -148,7 +179,6 @@ exports.questionTemplates = [
 
       So the two possible values for \\(k\\) are [[ small ]] and [[ big ]], and thus [[ small ]] is the least possible solution.
     '''
-    description: "Substitution & Factoring"
     variations: ->
       parameterizations = [
         {
@@ -177,6 +207,7 @@ exports.questionTemplates = [
   },
 
   {
+    description: "Probability"
     stimulus: '''
       A new college student is randomly assigned to one of [[ big ]] dorm rooms.
       The student has an equal chance of receiving each of the rooms as an assignment.
@@ -191,7 +222,6 @@ exports.questionTemplates = [
       ([[ small ]] of the rooms are painted [[ color ]]), while there are [[ big ]] total possibilities (each of the dorm rooms).  
       The probability is [[ small ]]/[[ big ]]. Dividing top and bottom by [[ small ]] gives us 1/[[ quotient ]].
       '''
-    description: "Probability"
     variations: ->
       parameterizations = [
         {
@@ -218,6 +248,7 @@ exports.questionTemplates = [
   }  
   
   {
+    description: "System of Equations"
     stimulus: '''
       For the system of values above, all terms are non-zero. 
 
@@ -235,7 +266,6 @@ exports.questionTemplates = [
 
       The third equation reads \\(a = mt\\), so it follows that \\(m = [[ correctAnswer ]]\\).
       '''
-    description: "System of Equations"
     variations: ->
       parameterizations = [
         {
@@ -257,6 +287,7 @@ exports.questionTemplates = [
   },  
   
   {
+    description: "Geometric Sequences"
     stimulus: '''
       The first two terms of a sequence are a and [[ jumpValue ]]a, and each term after the
       first is [[ jumpValue ]] times the preceding term.
@@ -268,7 +299,6 @@ exports.questionTemplates = [
       so we know that [[ sum ]]a = [[ bigSum ]], which means:
       $$a = { [[ bigSum ]] \\over [[ sum ]] } = [[ correctAnswer ]]$$
       '''
-    description: "Geometric Sequences"
     variations: ->
       parameterizations = [
         {
