@@ -9,6 +9,53 @@ join = (arr) ->
 
 exports.questionTemplates = [
   {
+    description: "Exponents"
+    stimulus:
+      '''
+      If \\( a ^ [[ var1 ]] * a ^ [[ var1 ]] = a ^ { [[ val1_times_2 ]] } \\)
+      and \\( (a ^ { [[ e ]] } ) ^ { [[ var2 ]] } = a ^ { [[ val2_times_e ]] } \\), what is the 
+      value of \\( [[ var1 ]] - [[ var2 ]] \\)?
+      '''
+    explanation:
+      '''
+      This is really two problems in one.  First, solve each problem separately.
+    
+      Solve for [[ var1 ]] first, using the property that multiplying powers of the same
+      base is equivalent to adding the exponents.
+    
+        $$ a ^ [[ var1 ]] * a ^ [[ var1 ]] = a ^ { [[ val1_times_2 ]] } $$
+        $$ a ^ { [[ var1 ]] + [[ var1 ]] } = a ^ { [[ val1_times_2 ]] } $$
+        $$ [[ var1 ]] + [[ var1 ]] = [[ val1_times_2 ]] $$
+        $$ [[ var1 ]] = [[ val1 ]] $$
+        
+      Now solve for [[ var2 ]], using the property that taking a power to another power is
+      equivalent to multiplying the exponents:
+      
+        $$ (a ^ { [[ e ]] } ) ^ { [[ var2 ]] } = a ^ { [[ val2_times_e ]] } $$
+        $$ a ^ { [[ e ]] * [[ var2 ]] } = a ^ { [[ val2_times_e ]] } $$
+        $$ [[ e ]] * [[ var2 ]] = [[ val2_times_e ]] $$
+        $$ [[ var2 ]] = [[ val2 ]] $$
+        
+      Since \\( [[ var1 ]] = [[ val1 ]] \\) and \\( [[ var2 ]] = [[ val2 ]] \\):
+      
+        $$ [[ var1 ]] - [[ var2 ]] = [[ correctAnswer ]] $$
+
+      '''
+    variations: ->
+      parameterizations = [
+        {var1: "x", var2: "y", val1: 5, val2: 2, e: 7}
+        {var1: "x", var2: "y", val1: 15, val2: 8, e: 3}
+        {var1: "x", var2: "y", val1: 12, val2: 6, e: -2}
+        {var1: "m", var2: "n", val1: 8, val2: 3, e: 5}
+      ]
+      for p in parameterizations
+        p.val1_times_2 = p.val1 * 2
+        p.val2_times_e = p.val2 * p.e
+        p.correctAnswer =  p.val1 - p.val2
+        p
+  },
+ 
+  {
     description: "Fractions"
     stimulus: '''
       On a hot summer day, [[ person ]] sold [[ n ]] cups of lemonade. 
