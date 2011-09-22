@@ -9,6 +9,45 @@ join = (arr) ->
 
 exports.questionTemplates = [
   {
+    description: "Function Composition"
+    stimulus:
+      '''
+      Let the function h be defined as \\( h(x) = x^2 + [[ c ]] \\). If y is a positive number
+      in which \\( h([[ n ]]y) = [[ n ]]h(y) \\), what is the value of y?
+      '''
+    explanation:
+      '''
+        Apply the definition of h(x) to both sides of the second equation:
+        
+          $$ h(x) = x^2 + [[ c ]] $$
+          $$ h([[ n ]]y) = [[ n ]]h(y) $$
+          $$ ([[ n ]]y)^2 + [[ c ]] = [[ n ]](y^2 + [[ c ]]) $$
+          
+        Solve for y, avoiding unnecessary multiplication by dividing both sides by [[ n ]]
+        early in the process:
+
+          $$ ([[ n ]] * [[ n ]])y^2 + [[ c ]] = [[ n ]]y^2 + [[ n ]] * [[ c ]] $$
+          $$ [[ n ]]y^2 + { [[ c ]] \\over [[ n ]] } = y^2 + [[ c ]] $$
+          $$ [[ n ]]y^2 + [[ c / n ]] = y^2 + [[ c ]] $$
+          $$ [[ n - 1]]y^2 = [[ c ]] - [[ c / n ]] = [[ c - c/n ]] $$
+          $$ y^2 = { [[ c - c/n ]] \\over [[ n - 1 ]] } = [[ (c - c/n) / (n - 1) ]]$$
+          $$ y = [[ correctAnswer ]] $$
+        
+      '''
+    variations: ->
+      parameterizations = [
+        {correctAnswer: 3, n: 7}
+        {correctAnswer: 4, n: 3}
+        {correctAnswer: 5, n: 4}
+        {correctAnswer: 6, n: 5}
+      ]
+      for p in parameterizations
+        p.c = (p.correctAnswer * p.correctAnswer) * p.n
+        p.c_over_n = p.c / p.n
+        p
+  },
+  
+  {
     description: "Percentages"
     stimulus:
       '''
