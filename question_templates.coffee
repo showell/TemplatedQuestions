@@ -9,6 +9,34 @@ join = (arr) ->
 
 exports.questionTemplates = [
   {
+    description: "Percentages"
+    stimulus:
+      '''
+      If [[ small ]]% of a = b% of [[ big ]] and \\( b > 0 \\), what is the value of \\( a \\over b \\)?
+      '''
+    explanation:
+      '''
+      Set up the equation, multiply by 100 to simplify the arithmetic, then solve for \\( a \\over b \\).
+      
+        $$ ([[ small ]]\\%) * a = (b\\%) * [[ big ]] $$
+        $$ { [[ small ]] \\over 100} * a = { b \\over 100} * [[ big ]] $$
+        $$ [[ small ]] * a = b * [[ big ]] $$
+        $$ a = b * { [[ big ]] \\over [[small]] } $$
+        $$ { a \\over b } = { [[ big ]] \\over [[small]] } = [[ correctAnswer ]] $$
+      '''
+    variations: ->
+      parameterizations = [
+        {small: 45, correctAnswer: 2}
+        {small: 15, correctAnswer: 6}
+        {small: 22, correctAnswer: 4}
+        {small: 12, correctAnswer: 7}
+      ]
+      for p in parameterizations
+        p.big = p.small * p.correctAnswer
+        p
+  },
+  
+  {
     description: "Exponents"
     stimulus:
       '''
