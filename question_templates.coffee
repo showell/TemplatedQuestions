@@ -140,6 +140,8 @@ exports.questionTemplates = [
     variations: ->
       parameterizations = [
         {var_name: "x", v: 4, a: 3, b: 7, d: 2, e: 5}
+        {var_name: "m", v: 3, a: 4, b: 8, d: 4, e: 7}
+        {var_name: "n", v: 5, a: 5, b: 9, d: 2, e: 9}
         {var_name: "y", v: 2, a: 7, b: 11, d: 3, e: 2}
       ]
       for p in parameterizations
