@@ -7,6 +7,42 @@ join = (arr) ->
 
 exports.questionTemplates = [
   {
+    description: "Fractions"
+    stimulus: '''
+      On a hot summer day, [[ person ]] sold [[ n ]] cups of lemonade. 
+      [[ Pronoun]] sold \\( [[ a ]] \\) of the lemonade before lunch, 
+      \\( [[ b ]] \\) during lunch, \\( [[ c ]] \\) in the afternoon, 
+      and the remaining cups in the evening. How many cups did [[ person ]] sell in the evening?  
+      '''
+    explanation: '''
+      Start by computing the number of cups sold in each slot other than the evening:
+      
+        $$ ([[ a ]] * [[ n ]]) + ([[ b ]] * [[ n ]]) + ([[ c ]] * [[ n ]]) = $$
+        $$ [[ sold1 ]] + [[ sold2 ]] + [[ sold3 ]]= $$
+        $$ [[ sold_before_dinner ]] $$
+        
+      Then, we know that [[ person ]] sold all the remaining cups during the evening:
+      
+        $$ [[ n ]] - [[ sold_before_dinner ]] = [[ correctAnswer ]] $$
+      '''
+    variations: ->
+      parameterizations = [
+        {aa: 8, bb: 7, cc: 4, n: 56, person: "Mary", Pronoun: "She"}
+        {aa: 3, bb: 5, cc: 15, n: 45, person: "James", Pronoun: "He"}
+      ]
+      for p in parameterizations
+        p.a = "{ 1 \\over #{p.aa} }"
+        p.b = "{ 1 \\over #{p.bb} }"
+        p.c = "{ 1 \\over #{p.cc} }"
+        p.sold1 = p.n / p.aa
+        p.sold2 = p.n / p.bb
+        p.sold3 = p.n / p.cc
+        p.sold_before_dinner = p.sold1 + p.sold2 + p.sold3
+        p.correctAnswer = p.n - p.sold_before_dinner
+        p
+  },
+  
+  {
     description: "Algebra: One Variable"
     stimulus: '''
       If \\( [[ a ]][[ var_name ]] - [[ b ]] = [[ c ]] \\), then \\( [[ d ]][[ var_name ]] + [[ e ]] = \\)
