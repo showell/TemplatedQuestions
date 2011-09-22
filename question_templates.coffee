@@ -7,7 +7,73 @@ join = (arr) ->
     last = arr.pop()
     "#{arr.join ", "}, and #{last}"
 
+fraction = (n, d) ->
+  "{ #{n} \\over #{d} }"
+
 exports.questionTemplates = [
+  {
+    description: "Word Problems (Marbles)"
+    stimulus:
+      '''
+      A jar contains red, white, and blue marbles.  There are [[ red ]]
+      red marbles.  There are \\( 1/[[ wr ]] \\) as many white marbles as
+      blue marbles.  \\( 1/[[ br ]] \\) of all the marbles are blue.  How
+      many marbles are there?
+      '''
+    explanation:
+      '''
+      Let n = the total number of marbles, and use r, w, and b to represent
+      the number of red, white, and blue marbles.  Start by translating the
+      facts we know:
+      
+        $$ n = r + w + b $$
+        $$ r = [[ red ]] $$
+        $$ w = [[ fraction(1, wr) ]]b $$
+        $$ b = [[ fraction(1, br) ]]n $$
+        
+      We want to solve for n, and eliminate other variables.  Start by substituting
+      for r, w, and b in the first equation:
+      
+        $$ n = [[ red ]] + [[ fraction(1, wr) ]]b + [[ fraction(1, br) ]]n $$
+      
+      We still need to eliminate \\( b \\), so we use \\( b = [[ fraction(1, br) ]]n \\):
+      
+        $$ n = [[ red ]] + [[ fraction(1, wr) ]]([[ fraction(1, br) ]]n) + [[ fraction(1, br) ]]n $$
+        $$ n - {1 \\over [[ wr*br ]] }n - {1 \\over [[ br ]] }n = [[ red ]] $$ 
+        $$ n * (1 - {1 \\over [[ wr*br ]] } - {1 \\over [[ br ]] }) = [[ red ]] $$ 
+        $$ n * ([[ frac1 ]] - [[ frac2 ]] - [[ frac3 ]]) = [[ red ]] $$
+        $$ n * [[ frac_sum ]] = [[ red ]] $$
+        $$ n = [[ inverse_frac_sum ]] * [[ red ]] = [[ wr*br ]] * [[ red / (wr*br - wr - 1) ]] = [[ correctAnswer ]] $$
+        
+      (FYI, the breakdown of marbles is [[ red ]] red, [[ white ]] white, and [[ blue ]] blue.)
+      '''
+    variations: ->
+      # use coprime tuples whose product < 100
+      parameterizations = [
+        {wr: 3, br: 4}
+        {wr: 3, br: 5}
+        {wr: 3, br: 7}
+        {wr: 4, br: 5}
+        {wr: 4, br: 7}
+        {wr: 5, br: 6}
+      ]
+      for p in parameterizations
+        wr = p.wr
+        br = p.br
+        p.minAnswer = p.wr * br
+        p.n = p.correctAnswer = Math.floor(100 / p.minAnswer) * p.minAnswer
+        p.blue = p.correctAnswer / br
+        p.white = p.blue / wr
+        p.red = p.n - (p.white + p.blue)
+        p.frac1 = fraction(wr*br, wr*br)
+        p.frac2 = fraction(1, wr*br)
+        p.frac3 = fraction(wr, wr*br)
+        p.frac_sum = fraction(wr*br - wr - 1, wr*br)
+        p.inverse_frac_sum = fraction(wr*br, wr*br - wr - 1)
+        p.fraction = fraction
+        p
+  },
+
   {
     description: "Function Composition"
     stimulus:
